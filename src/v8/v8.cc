@@ -501,6 +501,10 @@ bool V8::link(std::string_view debug_name) {
     case wasm::EXTERN_FUNC: {
       auto it = host_functions_.find(std::string(module) + "." + std::string(name));
       if (it == host_functions_.end()) {
+        std::cerr << "host functions" << std::endl;
+        for (auto &[key, value] : host_functions_) {
+          std::cerr << "  - " << key << std::endl;
+        }
         fail(FailState::UnableToInitializeCode,
              std::string("Failed to load Wasm module due to a missing import: ") +
                  std::string(module) + "." + std::string(name));
