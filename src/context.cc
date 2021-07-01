@@ -476,12 +476,13 @@ FilterHeadersStatus ContextBase::convertVmCallResultToFilterHeadersStatus(uint64
       result > static_cast<uint64_t>(FilterHeadersStatus::StopAllIterationAndWatermark)) {
     return FilterHeadersStatus::StopAllIterationAndWatermark;
   }
-  if (result == static_cast<uint64_t>(FilterHeadersStatus::StopIteration)) {
+  // Commenting out this conversion as a workaround to solve https://github.com/tetrateio/tetrate/issues/7709
+  /*if (result == static_cast<uint64_t>(FilterHeadersStatus::StopIteration)) {
     // Always convert StopIteration (pause processing headers, but continue processing body)
     // to StopAllIterationAndWatermark (pause all processing), since the former breaks all
     // assumptions about HTTP processing.
     return FilterHeadersStatus::StopAllIterationAndWatermark;
-  }
+  }*/
   return static_cast<FilterHeadersStatus>(result);
 }
 
